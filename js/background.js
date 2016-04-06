@@ -24,8 +24,22 @@ function go()
             crossDomain: true,
             success: function(res)
              { 
+            if(res.contest_info.time.start==false && res.contest_info.time.end==false)
+            {
+            	alert('Please enter a valid Contest Code');
+                chrome.alarms.clear("myAlarm");
+                localStorage.clear();
+            }
+            else if(res.contest_info.time.current>res.contest_info.time.end)
+            {
+                chrome.alarms.clear("myAlarm");
+                localStorage.clear();
+            }
+           	 else
+             {
            	 var totalUsers = res.selectedItems;
    			 var totalPages = Math.ceil(totalUsers / 50.0);
+   			 alert(totalUsers);
   			 for (var pages = 1; pages<=totalPages; pages++) //Complete pages
   			  {
     			var pageurl = url + "&page=" + pages;		
@@ -40,7 +54,7 @@ function go()
 	            		 crossDomain: true,
              success: function(reso)
              {
-             	 for(var i=0;i<reso.list.length;i++)
+              	 for(var i=0;i<reso.list.length;i++)
 					{  	 
 				      if(localStorage.getItem("User")!=null) //That is, this is the second execution of this loop smile emoticon
 			          { 
@@ -91,9 +105,8 @@ function go()
         });
       } // all pages done.
 	  //alert(JSON.stringify(user));
-	  alert('User Array = ' + JSON.stringify(user));
       localStorage.setItem("User", JSON.stringify(user));
-     
+     }
      }
   }).error(function() {
             setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
