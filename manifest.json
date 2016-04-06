@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "RankNot",
-  "description": "This extension will do something",  
+  "description": "A simple chrome plugin which notifies the user when the leaderboard of a particular Institution changes. ",  
   "version": "1.0",
 
   "background": {
@@ -22,7 +22,6 @@
   "permissions": [
    "activeTab",
    "https://www.codechef.com/*",
-   "https://www.codechef.com/api/rankings/APRIL16",
    "tabs",
    "storage", "alarms","notifications"
    ]

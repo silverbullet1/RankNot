@@ -12,7 +12,7 @@ $.ajaxSetup({
 
 function go()
 {  
-	var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(198).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(212).trim()) + "&order=asc&sortBy=rank";
+	var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(0).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(1).trim()) + "&order=asc&sortBy=rank";
 	$.ajax({
              type: "GET",
              url : url,
@@ -39,7 +39,6 @@ function go()
              {
            	 var totalUsers = res.selectedItems;
    			 var totalPages = Math.ceil(totalUsers / 50.0);
-   			 alert(totalUsers);
   			 for (var pages = 1; pages<=totalPages; pages++) //Complete pages
   			  {
     			var pageurl = url + "&page=" + pages;		

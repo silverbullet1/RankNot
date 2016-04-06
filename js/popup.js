@@ -3,8 +3,8 @@ var alarmClock = {
         onHandler : function(e) {
             localStorage.clear();
             chrome.alarms.create("myAlarm", {delayInMinutes: 0, periodInMinutes: 1} );
-            localStorage.setItem(198,document.getElementById("contest_code").value);
-            localStorage.setItem(212,document.getElementById("institution").value);
+            localStorage.setItem(0,document.getElementById("contest_code").value);
+            localStorage.setItem(1,document.getElementById("institution").value);
             localStorage.setItem("flag",0);
             window.close();
         },
