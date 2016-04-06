@@ -82,10 +82,14 @@ function go()
 				           	 	obj.score =  reso.list[i].score;
 				        	    obj.rank = reso.list[i].rank;
 				   			    user.push(obj);
-		    			   		var notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score);
+		    			   		var notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score+ "\n" + "Current Rank is " + reso.list[i].rank);
 				           	 } 
 				             else if(j<reso.list.length && user[j].score!=reso.list[i].score)
-				        	   	var notification = new Notification(reso.list[i].user_handle + " moved to " + reso.list[i].score);
+				        	   {
+				        	   	user[j].score = reso.list[i].score;
+				        	   	user[j].rank = reso.list[i].rank;
+				        	   	var notification = new Notification(reso.list[i].user_handle + " moved to " + reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank);
+			          			}
 			          		}
 			       	else
 			        	 {
