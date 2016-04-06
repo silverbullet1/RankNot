@@ -4,7 +4,7 @@ code followed by Institution and hit the blue button. Whenever the leaderboard o
 via desktop-chrome notifications.
 #Screenshots
 <p align="center">
-  <img src="https://i.gyazo.com/2056c02e023512aff3576ab9675afcef.png" alt="RankNot"/>
+  <img src="https://i.gyazo.com/127fb22f1f4b8b8e29834ed7ff18d4c1.png" alt="RankNot"/>
 </p>
 <p align="center">
   <img src="https://i.gyazo.com/ded1cf29b0fe7764391065e6e1971904.png" alt="RankNot"/>
