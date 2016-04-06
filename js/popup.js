@@ -1,18 +1,18 @@
 var alarmClock = {
 
         onHandler : function(e) {
-        chrome.alarms.create("myAlarm", {delayInMinutes: 0, periodInMinutes: 1} );
-        localStorage.setItem("flag",0);
-	    localStorage.clear();
-        localStorage.setItem(198,document.getElementById("contest_code").value);
-        localStorage.setItem(212,document.getElementById("institution").value);
-        window.close();
+            localStorage.clear();
+            chrome.alarms.create("myAlarm", {delayInMinutes: 0, periodInMinutes: 1} );
+            localStorage.setItem(198,document.getElementById("contest_code").value);
+            localStorage.setItem(212,document.getElementById("institution").value);
+            localStorage.setItem("flag",0);
+            window.close();
         },
 
         offHandler : function(e) {
-        chrome.alarms.clear("myAlarm");
-	    localStorage.clear();
-        window.close();
+            chrome.alarms.clear("myAlarm");
+                    window.close();
+                    localStorage.clear();
         },
 
         setup: function() {
@@ -24,5 +24,5 @@ var alarmClock = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    alarmClock.setup();	
+    alarmClock.setup(); 
 });
