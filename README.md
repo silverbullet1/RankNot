@@ -5,7 +5,7 @@ via desktop-chrome notifications.
 #Screenshots
 
 <p align="center">
-  <img src="https://i.gyazo.com/2056c02e023512aff3576ab9675afcef.png" alt="RankNot"/>
+  <img src="https://i.gyazo.com/d6edf9785234c3f874f05e76152ea25d.png" alt="RankNot"/>
 </p>
 
 <p align="center">
