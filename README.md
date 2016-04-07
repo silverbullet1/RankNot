@@ -9,7 +9,7 @@ via desktop-chrome notifications.
 </p>
 
 <p align="center">
-  <img src="https://i.gyazo.com/127fb22f1f4b8b8e29834ed7ff18d4c1.png" alt="RankNot"/>
+  <img src="https://i.gyazo.com/158c6d90cc0f9c4405b4cc4b7623521b.png" alt="RankNot"/>
 </p>
 #Credits
 Thanks <a href="https://github.com/inventionsbyhamid">@inventionsbyhamid</a> for support :)
