@@ -13,6 +13,7 @@ $.ajaxSetup({
 function go()
 {  
 	var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(0).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(1).trim()) + "&order=asc&sortBy=rank";
+	var notification;
 	$.ajax({
              type: "GET",
              url : url,
@@ -82,24 +83,24 @@ function go()
 				           	 	obj.score =  reso.list[i].score;
 				        	    obj.rank = reso.list[i].rank;
 				   			    user.push(obj);
-		    			   		var notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score+ "\n" + "Current Rank is " + reso.list[i].rank);
+		    			   		notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score+ "\n" + "Current Rank is " + reso.list[i].rank, { icon : "R.png" });
 				           	 } 
 				             else if(j<reso.list.length && user[j].score!=reso.list[i].score)
 				        	   {
 				        	   	user[j].score = reso.list[i].score;
 				        	   	user[j].rank = reso.list[i].rank;
-				        	   	var notification = new Notification(reso.list[i].user_handle + " moved to " + reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank);
+				        	   	notification = new Notification(reso.list[i].user_handle + " moved to " + reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
 			          			}
 			          		}
 			       	else
 			        	 {
-			         		obj = {};
-			         		obj.username = reso.list[i].user_handle;
-			           	 	obj.score =  reso.list[i].score;
-			        	    obj.rank = reso.list[i].rank;
-			  			    user.push(obj);
-						    var notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score);
-			            	//remove this later^, suppose the plugin is activated in between, then stack of notifications would pile up.	
+				         		obj = {};
+				         		obj.username = reso.list[i].user_handle;
+				           	 	obj.score =  reso.list[i].score;
+				        	    obj.rank = reso.list[i].rank;
+				  			    user.push(obj);
+							    notification = new Notification(reso.list[i].user_handle + " is at "+reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
+			               	    //remove this later^, suppose the plugin is activated in between, then stack of notifications would pile up.	
 			         }
 			     }
     		}
