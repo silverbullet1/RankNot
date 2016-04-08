@@ -6,11 +6,6 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 	 go();
 });
 
-$.ajaxSetup({
-    timeout: 3000, 
-    retryAfter:7000
-});
-
 function go()
 {  
 	var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(0).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(1).trim()) + "&order=asc&sortBy=rank";
@@ -56,14 +51,13 @@ function go()
 	            		 crossDomain: true,
              success: function(reso)
              {
-             	if(localStorage.getItem("User")!=null)
               	 for(var i=0;i<reso.list.length;i++)
 					{  	 
 				      if(localStorage.getItem("User")!=null) //That is, this is the second execution of this loop smile emoticon
 			          { 
 			        	 user = localStorage.getItem("User"); //Load the previous Array
 			        	 user = JSON.parse(user); //Parse it
-			           	 for(j=0; j<user.length;j++)
+			           	 for(j=0; j<user.length; j++)
 			        	 {
 			           		 if(user[j].username == reso.list[i].user_handle)
 			             	 		break; //Username found at jth index
@@ -91,19 +85,15 @@ function go()
 				           	 	obj.score =  reso.list[i].score;
 				        	    obj.rank = reso.list[i].rank;
 				  			    user.push(obj);
-							    notification = new Notification(reso.list[i].user_handle + " is at "+reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
+							    //notification = new Notification(reso.list[i].user_handle + " is at "+reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
 			               	    //remove this later^, suppose the plugin is activated in between, then stack of notifications would pile up.	
 			         }
 			     }
     		}
- 		    }).error(function() {
-            setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
-        });
+ 		    })
       } // all pages done.
       localStorage.setItem("User", JSON.stringify(user));
      }
      }
-  }).error(function() {
-            setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
-        });
+  })
 }
