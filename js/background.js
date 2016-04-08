@@ -2,6 +2,7 @@ var flag = 0,j=0
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
 	user =[];
+	j=0;
 	 go();
 });
 
@@ -33,6 +34,7 @@ function go()
             }
             else if(res.contest_info.time.current>res.contest_info.time.end)
             {
+            	alert('Contest has ended!');
                 chrome.alarms.clear("myAlarm");
                 localStorage.clear();
             }
@@ -54,29 +56,19 @@ function go()
 	            		 crossDomain: true,
              success: function(reso)
              {
+             	if(localStorage.getItem("User")!=null)
               	 for(var i=0;i<reso.list.length;i++)
 					{  	 
 				      if(localStorage.getItem("User")!=null) //That is, this is the second execution of this loop smile emoticon
 			          { 
-			        	 user = localStorage.getItem("User");
-			        	 user = JSON.parse(user);
-			        	 if(reso.list.length>user.length) // We would be comparing null indices of userUpdate otherwise 
-			        	 	for(j=0; j<reso.list.length-user.length;j++)
-			        	 	{
-			        	 		obj = {};
-			        	 		obj.username="";
-			        	 		obj.score="";
-			        	 		obj.rank="";
-			        	 		user.push(obj); //Make both the Arrays equal.
-			        	 	}
-			        	 for(j=0; j<reso.list.length;j++)
+			        	 user = localStorage.getItem("User"); //Load the previous Array
+			        	 user = JSON.parse(user); //Parse it
+			           	 for(j=0; j<user.length;j++)
 			        	 {
-			           		 if(user[j].username != reso.list[i].user_handle)
-			           	  	  	continue;
-			           		 else 
-			           	 		break; //Username found at jth index
-			        	 }
-			           	 	if(j == reso.list.length)
+			           		 if(user[j].username == reso.list[i].user_handle)
+			             	 		break; //Username found at jth index
+			        	 }	
+			           	 	if(j == user.length)
 			        	 	{ //Iterated through all the elements and still didn't find the username, so this is most probably a new username
 				        	  	obj = {};
 				        	  	obj.username = reso.list[i].user_handle;
@@ -85,7 +77,7 @@ function go()
 				   			    user.push(obj);
 		    			   		notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score+ "\n" + "Current Rank is " + reso.list[i].rank, { icon : "R.png" });
 				           	 } 
-				             else if(j<reso.list.length && user[j].score!=reso.list[i].score)
+				             else if(j<user.length && user[j].score!=reso.list[i].score)
 				        	   {
 				        	   	user[j].score = reso.list[i].score;
 				        	   	user[j].rank = reso.list[i].rank;
@@ -108,7 +100,6 @@ function go()
             setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
         });
       } // all pages done.
-	  //alert(JSON.stringify(user));
       localStorage.setItem("User", JSON.stringify(user));
      }
      }
