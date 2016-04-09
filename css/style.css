@@ -46,8 +46,7 @@
 /* Reset End */
 
 body {
-	background: #4EAFCD url("bg.png") repeat;
-	position: relative;
+	background: url("RankNot.jpg") no-repeat;
 	font-family: 'Oswald', sans-serif;
 }
 
@@ -57,17 +56,16 @@ body {
 }
 
 #loginform {	
-	background-color: #f7f7f7;
+	background: url("RankNot.jpg") no-repeat;
 	display: block;
-	height: 190px;
+	height: 180px;
 	margin: 0 auto;	
 	outline: solid 10px rgba(0,0,0,0.10);
-	width: 190px;
+	width: 200px;
 	padding: 20px;
 }
 
 .login-username:before { 
-	content: "RankNot";
 	color: #4c4c4c;	
 	font-size: 20px;
 	text-transform: uppercase;
@@ -81,72 +79,89 @@ body {
 }
  
 .login-username .input{ 
-	margin-top: 15px;
+    border-radius: 9px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+	position: absolute;
+	margin-top: 74px;
+	margin-left: 110px; 
  } 
 
-.login-password .input { margin-top: -14px;}
+.login-password .input 
+{
+    border-radius: 9px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+	position: absolute;
+	margin-top: 103px;
+	margin-left: 110px; 
+}
  
  ::-moz-placeholder {  /* Firefox 19+ */
    color: #4c4c4c;
-   text-transform: uppercase;
 }
 
 ::-webkit-input-placeholder {
    color: #5d5b5b;
-   text-transform: uppercase;
 }
 
 .input { 
+	position: absolute;
 	background-color: #fff;
 	cursor: text;
 	border: solid 1px #dedede; 
 	box-sizing: border-box;
 	color: #4c4c4c;
 	font: 400 13px/18px 'oswald';
-	height: 40px;
-	margin-bottom: -14px;
+	height: 0px;
+	margin-bottom: 150px;
 	outline: none;
-	padding: 8px 15px;
+	padding: 10px 15px;
 	transition: border 0.3s;
-	width:100%;
+	width: 45%;
 }
 
 .input:focus { border: solid 1px #f35b5b; }
 
-.login-username:after {
-	background-color: #f7f7f7;
-	content: '*';	
-	color: #f35b5b;
-	height: 35px;
-	width: 35px;
-	float: right;
-	font: 400 24px 'oswald';
-	line-height: 43px;
-	position: relative;
-	overflow: hidden;
-	right: 2px;
-	text-align: center;
-	top: -24px;
+.button1 {
+    /*adjust the roundness*/
+    border-radius: 8px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+    /*adjust height and width*/
+    height: 30px;
+    margin-top: 148px;
+    margin-left: 0px;
+    width: 100px; 
+	font:  14px/36px 'oswald';
+    background-color: #ED1E24;    
+	color: #fff;
+    /*change border colour*/
+    border:1px #ED1E24 solid;
 }
-
-.login-password:after {
-	background-color: #f7f7f7;
-	content: '*';	
-	color: #f35b5b;
-	height: 35px;
-	width: 35px;
-	float: right;
-	font: 400 24px 'oswald';
-	line-height: 43px;
-	position: relative;
-	overflow: hidden;
-	right: 2px;
-	text-align: center;
-	top: -24px;
+.button2 {
+    /*adjust the roundness*/
+    border-radius: 8px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+    /*adjust height and width*/
+    height: 30px;
+    margin-top: -500px;
+    margin-left: 110px;
+    width: 100px; 
+	font:  14px/36px 'oswald';
+    background-color: #ED1E24;    
+	color: #fff;
+    /*change border colour*/
+    border:1px #ED1E24 solid;
 }
 
 .button-primary {
-	background-color: #14b9d6;
+    border-radius: 8px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+	background-color: #ED1E24; 
+	position:absolute;
 	border: solid 1px transparent; 
 	box-sizing: border-box;
 	color: #fff;
@@ -154,16 +169,21 @@ body {
 	font:  14px/36px 'oswald';
 	height: 42px;
 	letter-spacing: 1px;
-	margin-top: -11px;
+	margin-top: 140px;
+	margin-left: -5px;
 	outline: none;
 	text-align: center;
 	text-transform: uppercase;
 	transition: background-color 0.5s;
-	width: 100%;
+	width: 45%;
 }
 
 .button-secondary {
-	background-color: #FF0000;
+    border-radius: 8px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+	background-color: #ED1E24; 
+	position:absolute;
 	border: solid 1px transparent; 
 	box-sizing: border-box;
 	color: #fff;
@@ -171,14 +191,19 @@ body {
 	font:  14px/36px 'oswald';
 	height: 42px;
 	letter-spacing: 1px;
-	margin-top: 5px;
+	margin-left: 110px;
+	margin-top: 140px;
 	outline: none;
 	text-align: center;
 	text-transform: uppercase;
 	transition: background-color 0.5s;
-	width: 100%;
+	width: 40%;
 }
 .button-primary:hover {
+	background-color: #469DB6;
+
+}
+.button-secondary:hover {
 	background-color: #469DB6;
 
 }

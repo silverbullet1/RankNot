@@ -15,15 +15,17 @@
 </head>
 
 <body>
+<div id="main" class="container"> 
+<form name="loginform" id="loginform" action="#" method="post" class="wpl-track-me"> 
+<p class="login-username">
+			<input type="text" name="contest_code" id="contest_code" class="input" placeholder="" value="" size="20" /> 
+		</p> 
+		<p class="login-password"> 
+		<input type="text" name="institution" id="institution" class="input" placeholder="" value="" size="20" /> 
+		</p>
 <div id="main" class="container"> 	
 	<form name="loginform" id="loginform" action="#" method="post" class="wpl-track-me"> 
 		<p class="login-username">
-		<label for="user_login">Contest Code</label> 
-			<input type="text" name="contest_code" id="contest_code" class="input" placeholder="Contest Code" value="" size="20" /> 
-		</p> 
-		<p class="login-password"> 
-		<label for="user_pass">Institute</label><input type="text" name="institution" id="institution" class="input" placeholder="Institute Name" value="" size="20" /> 
-		</p>
 		<p class="login-submit"><input type="submit" name="alarmOn" id="alarmOn" class="button-primary" value="Notify Me!" />
 		<p class="login-submit"><input type="submit" name="alarmOff" id="alarmOff" class="button-secondary" value="Exit" />
 		</p> 	

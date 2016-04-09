@@ -1,108 +1,127 @@
-var flag = 0,j=0
+		
+	var str,str2;
+	chrome.alarms.onAlarm.addListener(function(alarm) {
+		user =[];
+		j=0;
+		go();
+	});
 
-chrome.alarms.onAlarm.addListener(function(alarm) {
-	user =[];
-	j=0;
-	 go();
-});
+	$.ajaxSetup({
+		timeout: 3000, 
+		retryAfter:3000
+	});
 
-$.ajaxSetup({
-    timeout: 3000, 
-    retryAfter:7000
-});
-
-function go()
-{  
-	var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(0).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(1).trim()) + "&order=asc&sortBy=rank";
-	var notification;
-	$.ajax({
-             type: "GET",
-             url : url,
-             datatype: 'jsonp',
-             async : false,
-             xhrFields: {
-             withCredentials: true
-            },
-            crossDomain: true,
-            success: function(res)
-             { 
-            if(res.contest_info.time.start==false && res.contest_info.time.end==false)
-            {
-            	alert('Please enter a valid Contest Code');
-                chrome.alarms.clear("myAlarm");
-                localStorage.clear();
-            }
-            else if(res.contest_info.time.current>res.contest_info.time.end)
-            {
-            	alert('Contest has ended!');
-                chrome.alarms.clear("myAlarm");
-                localStorage.clear();
-            }
-           	 else
-             {
-           	 var totalUsers = res.selectedItems;
-   			 var totalPages = Math.ceil(totalUsers / 50.0);
-  			 for (var pages = 1; pages<=totalPages; pages++) //Complete pages
-  			  {
-    			var pageurl = url + "&page=" + pages;		
-    			 $.ajax({
-				             type: "GET",
-				             url : pageurl,
-				             datatype: 'jsonp',
-				             async : false,
-				             xhrFields: {
-				             withCredentials: true
-			            },
-	            		 crossDomain: true,
-             success: function(reso)
-             {
-              	 for(var i=0;i<reso.list.length;i++)
-					{  	 
-				      if(localStorage.getItem("User")!=null) //That is, this is the second execution of this loop smile emoticon
-			          { 
-			        	 user = localStorage.getItem("User"); //Load the previous Array
-			        	 user = JSON.parse(user); //Parse it
-			           	 for(j=0; j<user.length; j++)
-			        	 {
-			           		 if(user[j].username == reso.list[i].user_handle)
-			             	 		break; //Username found at jth index
-			        	 }	
-			           	 	if(j == user.length)
-			        	 	{ //Iterated through all the elements and still didn't find the username, so this is most probably a new username
-				        	  	obj = {};
-				        	  	obj.username = reso.list[i].user_handle;
-				           	 	obj.score =  reso.list[i].score;
-				        	    obj.rank = reso.list[i].rank;
-				   			    user.push(obj);
-		    			   		notification = new Notification(reso.list[i].user_handle + " joined the leaderboard with a score of "+reso.list[i].score+ "\n" + "Current Rank is " + reso.list[i].rank, { icon : "R.png" });
-				           	 } 
-				             else if(j<user.length && user[j].score!=reso.list[i].score)
-				        	   {
-				        	   	user[j].score = reso.list[i].score;
-				        	   	user[j].rank = reso.list[i].rank;
-				        	   	notification = new Notification(reso.list[i].user_handle + " moved to " + reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
-			          			}
-			          		}
-			       	else
-			        	 {
-				         		obj = {};
-				         		obj.username = reso.list[i].user_handle;
-				           	 	obj.score =  reso.list[i].score;
-				        	    obj.rank = reso.list[i].rank;
-				  			    user.push(obj);
-							    notification = new Notification(reso.list[i].user_handle + " is at "+reso.list[i].score + "\n" + "Current Rank is " + reso.list[i].rank , { icon : "R.png" });
-			               	    //remove this later^, suppose the plugin is activated in between, then stack of notifications would pile up.	
-			         }
-			     }
-    		}
- 		    }).error(function() {
-            setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
-        });
-      } // all pages done.
-      localStorage.setItem("User", JSON.stringify(user));
-     }
-     }
-  }).error(function() {
-            setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
-        });
-}
+	function go()
+	{  
+		var url = "https://www.codechef.com/api/rankings/" + localStorage.getItem(0).trim() + "?filterBy=Institution%3D" + encodeURIComponent(localStorage.getItem(1).trim()) + "&order=asc&sortBy=rank";
+		var notification;
+		$.ajax({
+				 type: "GET",
+				 url : url,
+				 datatype: 'jsonp',
+				 async : false,
+				 xhrFields: {
+				 withCredentials: true
+				},
+				crossDomain: true,
+				success: function(res)
+				{ 
+					user = []; //Clear user after iterating through all the pages.	
+					if(res.contest_info.time.start==false && res.contest_info.time.end==false)
+					{
+						alert('Please enter a valid Contest Code');
+						chrome.alarms.clear("myAlarm");
+						localStorage.clear();
+					}
+					else if(res.contest_info.time.current>res.contest_info.time.end)
+					{
+						alert('Contest has ended!');
+						chrome.alarms.clear("myAlarm");
+						localStorage.clear();
+					}
+					else
+					{
+					 var totalUsers = res.selectedItems;
+					 var totalPages = Math.ceil(totalUsers / 50.0);
+					 if(localStorage.getItem("User")==null) //This loop is executing the first time
+					 {
+						for (var pages = 1; pages<=totalPages; pages++)
+						{ //Add all users from all pages (Initial Synchronization)
+							var pageurl = url + "&page=" + pages;		
+							$.ajax({
+									 type: "GET",
+									 url : pageurl,
+									 datatype: 'jsonp',
+									 async : false,
+									 xhrFields: {
+									 withCredentials: true
+									},
+									 crossDomain: true,
+								success: function(reso)
+								{
+								for(var i = 0; i<reso.list.length; i++)     		
+								{
+									obj = {};
+									obj.username = reso.list[i].user_handle;
+									obj.score = reso.list[i].score;
+									obj.rank = reso.list[i].rank;
+									user.push(obj);
+								}}}).error(function() {
+									setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
+									});
+						}
+					 }
+					 else
+					 {
+						 user =localStorage.getItem("User");
+						 user = JSON.parse(user);
+						 //console.log(JSON.stringify(user)); for debugging purposes
+						 for (var pages = 1; pages<=totalPages; pages++) //Complete pages
+						 {
+							var pageurl = url + "&page=" + pages;		
+							$.ajax({
+										 type: "GET",
+										 url : pageurl,
+										 datatype: 'jsonp',
+										 async : false,
+										 xhrFields: {
+										 withCredentials: true
+									},
+									 crossDomain: true,
+						 success: function(reso)
+						 {
+								for(var i = 0; i<reso.list.length; i++)  
+								{
+									for(j = 0; j<user.length; j++)
+									{
+										if(reso.list[i].user_handle==user[j].username)
+											break;
+									}
+									if(j == user.length) //Didn't find this new username in the previously Saved Array.
+									{
+										obj = {};
+										obj.username = reso.list[i].user_handle;
+										obj.score = reso.list[i].score;
+										obj.rank = reso.list[i].rank;
+										user.push(obj);
+										var notification = new Notification(obj.username + "joined the leaderboard with " + obj.score+ "\n" + "Current Rank is " + obj.rank, { icon : "R.png" });
+							 
+									}
+									else if(j<user.length && user[j].score!=reso.list[i].score)
+									{
+										user[j].score = reso.list[i].score;
+										user[j].rank = reso.list[i].rank;
+										var notification = new Notification(user[j].username + " moved to "+user[j].score+ "\n" + "Current Rank is " + user[j].rank, { icon : "R.png" });
+									}
+								}
+						  } //Current page done.
+						  }).error(function() {
+						   setTimeout ( function(){ func( param ) }, $.ajaxSetup().retryAfter );
+						   });//All pages done.
+						 }
+					  }
+						localStorage.setItem("User",JSON.stringify(user)); //Save changes.
+				   }
+				}
+			})
+	}
