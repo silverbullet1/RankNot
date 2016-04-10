@@ -8,6 +8,7 @@
   "background": {
     "scripts": ["js/jquery-2.2.2.js","js/background.js"]
   },
+"icons": { "128": "R.png"},
   "content_scripts": [
     {
       "matches": ["https://www.codechef.com/*"],
